@@ -1,24 +1,44 @@
-const container = document.querySelector('.container');
-container.addEventListener('mouseover', changeBg);
+const drawingBoard = document.querySelector('.drawing-board');
+const btn = document.querySelector('.reset-square');
 
-function makeGrid(rows, columns) {
-  for(let i=0; i<rows; i++) {
+btn.addEventListener('click', setSquare);
+drawingBoard.addEventListener('mouseover', changeBg);
+
+function setSquare() {
+  sideSize = getNumFromUI();
+  resetSquare();
+  makeSquare(sideSize);
+};
+
+function getNumFromUI() {
+  let ui;
+  while (true) {
+    ui = prompt('Please select the grid: 1-64');
+    if (ui <= 64) break;
+    alert('You have entered a bigger number than max!');
+  }
+  return ui;
+};
+
+function resetSquare() {
+  const children = Array.from(drawingBoard.children);
+  children.forEach((e)=>e.remove());
+}
+
+function makeSquare(sideSize) {
+  for(let i=0; i<sideSize; i++) {
     const row = document.createElement('div');
     row.className = `row-${i+1}`;
-    container.appendChild(row);
-    for(let j=0; j<columns; j++) {
+    drawingBoard.appendChild(row);
+    for(let j=0; j<sideSize; j++) {
       const column = document.createElement('div');
       column.className = `column-${j+1}`;
-      column.style.cssText = `height: ${64 / columns}; width: ${64 / columns}`;
+      column.style.height = column.style.width = `${64 / sideSize}`;
       row.appendChild(column);
     }
   }
 };
 
 function changeBg(e) {
-  if (e.target.className.match(/column/)) e.target.style.cssText = 'background-color: blue';
-}
-// makeGrid(16, 16);
-// makeGrid(64, 64);
-makeGrid(10, 10);
-// makeGrid(1, 1);
+  if (e.target.className.match(/column/)) e.target.classList.add('painted');
+};
