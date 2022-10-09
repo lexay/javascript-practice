@@ -81,23 +81,36 @@
   color: white;
   font-size: 2rem;
 }
-@media screen and (min-width: 300px) and (max-width: 480px) {
+@media screen and (min-width: 200px) and (max-width: 480px) {
   .calc-body {
     height: 20vh;
+    width: 60vw;
     padding: 2%;
   }
   .calc-screen {
+    flex: 1;
     margin-bottom: 5%;
     margin-top: 5%;
   }
 
   .calc-buttons {
     height: 70%;
-    flex: 0;
+    flex: 2;
+  }
+
+  .operand {
+    font-size: 0.7rem;
   }
 
   .operator {
     height: 25%;
-    font-size: 0.9rem;
+    width: 70%;
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (min-height: 200px) and (max-height: 480px) {
+  .calc-body {
+    height: 60vh;
   }
 }
