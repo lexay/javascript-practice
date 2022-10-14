@@ -5,7 +5,7 @@ calcBtns.addEventListener('click', getInput);
 
 let operator;
 let operandArr = [];
-let result = '';
+let input = '';
 calcScreen.innerText = 0;
 
 function getInput(event) {
@@ -14,13 +14,19 @@ function getInput(event) {
   const clickedContent = clicked.innerText;
 
   if (clickedName.match(/operand/)) {
-    result += clickedContent;
-    calcScreen.innerText = result;
+    input += clickedContent;
+    calcScreen.innerText = input;
   } else if (clickedName.match(/operator/)) {
-    operandArr.push(calcScreen.innerText);
+    operandArr.push(Number(calcScreen.innerText));
     operator = clickedContent;
-    calcScreen.innerText = result;
-    result = '';
+    if (operandArr.length === 2) {
+      let n1 = operandArr.shift();
+      let n2 = operandArr.shift();
+      let result = n1 + n2;
+      calcScreen.innerText = result;
+      operandArr.push(result);
+    }
+    input = '';
   }
 }
 // 1. When operand button is clicked keep adding numbers.
