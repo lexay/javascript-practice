@@ -3,7 +3,6 @@ const calcScreen = document.querySelector('.calc-screen');
 
 calcBtns.addEventListener('click', getInput);
 
-let operator;
 let operandArr = [];
 let input = '';
 calcScreen.innerText = 0;
@@ -18,15 +17,26 @@ function getInput(event) {
     calcScreen.innerText = input;
   } else if (clickedName.match(/operator/)) {
     operandArr.push(Number(calcScreen.innerText));
-    operator = clickedContent;
+    const operator = clickedContent;
     if (operandArr.length === 2) {
-      let n1 = operandArr.shift();
-      let n2 = operandArr.shift();
-      let result = n1 + n2;
-      calcScreen.innerText = result;
-      operandArr.push(result);
+      evalResult(operator);
     }
     input = '';
+  }
+}
+
+function evalResult(operator) {
+  let n1 = operandArr.shift();
+  let n2 = operandArr.shift();
+  let result = evalOperation(operator, n1, n2);
+  calcScreen.innerText = result;
+  operandArr.push(result);
+}
+
+function evalOperation(operator) {
+  switch (operator) {
+    case '+':
+      return n1 + n2;
   }
 }
 // 1. When operand button is clicked keep adding numbers.
