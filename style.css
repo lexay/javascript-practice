@@ -74,7 +74,7 @@
   align-items: center;
 }
 
-.operator {
+.operator, .plus-minus, .percent {
   /* flex: 1 1 20%; */
   height: 25%;
   width: 50%;
@@ -82,7 +82,7 @@
   font-size: 1.5rem;
 }
 
-.calc-buttons-evaluation {
+.calc-buttons-misc {
   display: flex;
   height: 100%;
   flex: 1 2 20%;
@@ -125,14 +125,14 @@
     font-size: 0.7rem;
   }
 
-  .operator {
+  .operator, .plus-minus, .percent {
     height: 25%;
     width: 70%;
     font-size: 0.7rem;
   }
 }
 
-@media screen and (min-height: 200px) and (max-height: 480px) {
+@media screen and (min-height: 200px) and (max-height: 700px) {
   .calc-body {
     height: 60vh;
   }

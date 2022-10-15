@@ -1,12 +1,18 @@
-const calcBtns = document.querySelector('.calc-buttons-main');
+const calcBtns = document.querySelector('.calc-buttons');
 const calcScreen = document.querySelector('.calc-screen');
+const clearBtn = document.querySelector('.clear');
+const plusMinusBtn = document.querySelector('.plus-minus');
+const percentBtn = document.querySelector('.percent');
 
 calcBtns.addEventListener('click', getInput);
+clearBtn.addEventListener('click', clear);
+plusMinusBtn.addEventListener('click', ()=> calcScreen.innerText = 0 - (calcScreen.innerText));
+percentBtn.addEventListener('click', ()=> calcScreen.innerText = calcScreen.innerText / 100);
 
-let operatorArr = [];
-let operandArr = [];
-let digits = '';
-calcScreen.innerText = '0';
+let operatorArr;
+let operandArr;
+let digits;
+clear();
 
 function getInput(event) {
   const clicked = event.target;
@@ -16,7 +22,7 @@ function getInput(event) {
   if (clickedName.match(/operand/)) {
     let digit = clickedContent;
     setOperand(digit);
-  } else if (clickedName.match(/operator/)) {
+  } else if (clickedName.match(/operator/) || clickedName.match(/evaluate/)) {
     const enteredNumber = calcScreen.innerText;
     const operator = clickedContent;
     operatorArr.push(operator);
@@ -43,7 +49,6 @@ function operate() {
 };
 
 function getResult(operator, n1, n2) {
-  console.log(operator);
   switch (operator) {
     case '-':
       return n1 - n2;
@@ -54,6 +59,13 @@ function getResult(operator, n1, n2) {
     default:
       return n1 + n2;
   };
+};
+
+function clear() {
+  calcScreen.innerText = '0';
+  operandArr = [];
+  operatorArr = [];
+  digits = '';
 };
 // 1. When operand button is clicked keep adding numbers.
 // 2. When operator is pressed, save first number, save operator.
