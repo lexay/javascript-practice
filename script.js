@@ -6,7 +6,7 @@ calcBtns.addEventListener('click', getInput);
 let operatorArr = [];
 let operandArr = [];
 let digits = '';
-calcScreen.innerText = 0;
+calcScreen.innerText = '0';
 
 function getInput(event) {
   const clicked = event.target;
@@ -14,29 +14,35 @@ function getInput(event) {
   const clickedContent = clicked.innerText;
 
   if (clickedName.match(/operand/)) {
-    const digit = clickedContent;
-    digits += digit;
-    calcScreen.innerText = digits;
+    let digit = clickedContent;
+    setOperand(digit);
   } else if (clickedName.match(/operator/)) {
     const enteredNumber = calcScreen.innerText;
     const operator = clickedContent;
     operatorArr.push(operator);
     operandArr.push(Number(enteredNumber));
-    if (operandArr.length === 2) evalResult(); 
+    if (operandArr.length === 2) operate(); 
     digits = '';
-  }
-}
+  };
+};
 
-function evalResult() {
+function setOperand(digit) {
+  if (digits.match(/\./) && digit === '.') digit = '';
+  if (digits === '' && digit === '.') digits = '0';
+  digits += digit;
+  calcScreen.innerText = digits;
+};
+
+function operate() {
   let n1 = operandArr.shift();
   let n2 = operandArr.shift();
   let operator = operatorArr.shift();
-  let result = evalOperation(operator, n1, n2);
-  calcScreen.innerText = result;
+  let result = getResult(operator, n1, n2);
   operandArr.push(result);
-}
+  calcScreen.innerText = result;
+};
 
-function evalOperation(operator, n1, n2) {
+function getResult(operator, n1, n2) {
   console.log(operator);
   switch (operator) {
     case '-':
@@ -47,8 +53,8 @@ function evalOperation(operator, n1, n2) {
       return n1 / n2;
     default:
       return n1 + n2;
-  }
-}
+  };
+};
 // 1. When operand button is clicked keep adding numbers.
 // 2. When operator is pressed, save first number, save operator.
 // 3. 
