@@ -22,7 +22,7 @@ function getInput(event) {
   if (clickedName.match(/operand/)) {
     let digit = clickedContent;
     setOperand(digit);
-  } else if (clickedName.match(/operator/) || clickedName.match(/evaluate/)) {
+  } else if (clickedName.match(/operator/) || clickedName.match(/equals/)) {
     const enteredNumber = calcScreen.innerText;
     const operator = clickedContent;
     operatorArr.push(operator);
@@ -56,8 +56,10 @@ function getResult(operator, n1, n2) {
       return n1 * n2;
     case '/':
       return n1 / n2;
-    default:
+    case '+':
       return n1 + n2;
+    case '=':
+      return Number(calcScreen.innerText);
   };
 };
 
