@@ -19,7 +19,9 @@ function getInput(event) {
   const clickedName = clicked.className;
   const clickedContent = clicked.innerText;
 
-  if (clickedName.match(/operand/)) {
+  if (calcScreen.innerText === 'ERROR') {
+    clear();
+  } else if (clickedName.match(/operand/)) {
     let digit = clickedContent;
     setOperand(digit);
   } else if (clickedName.match(/operator/) || clickedName.match(/equals/)) {
@@ -55,6 +57,7 @@ function getResult(operator, n1, n2) {
     case '*':
       return n1 * n2;
     case '/':
+      if (n2 === 0) return 'ERROR';
       return n1 / n2;
     case '+':
       return n1 + n2;
