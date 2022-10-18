@@ -25,17 +25,18 @@ function getInput(event) {
     let digit = clickedContent;
     setOperand(digit);
   } else if (clickedName.match(/operator/) || clickedName.match(/equals/)) {
-    const enteredNumber = calcScreen.innerText;
+    const enteredOperand = calcScreen.innerText;
     const operator = clickedContent;
     operatorArr.push(operator);
-    operandArr.push(Number(enteredNumber));
+    operandArr.push(Number(enteredOperand));
     if (operandArr.length === 2) operate(); 
     digits = '';
   };
 };
 
 function setOperand(digit) {
-  if (digits.match(/\./) && digit === '.') digit = '';
+  if (digits.match(/\./) && digit === '.') return;
+  if (digit === '0' && calcScreen.innerText === '0') return;
   if (digits === '' && digit === '.') digits = '0';
   digits += digit;
   calcScreen.innerText = digits;
